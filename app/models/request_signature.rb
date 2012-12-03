@@ -3,13 +3,15 @@ class RequestSignature < ActiveRecord::Base
   attr_accessible :accept, :accept_charset, :accept_encoding, :accept_language,
                   :remote_ip, :request_uuid
 
-  belongs_to :resource_request
-  has_one :resource, through: :resource_request
-  has_one :user_agent, through: :resource_request
+  before_validation :generate_checksum, on: :create
 
-  validates :remote_ip, presence: true
-  validates :resource_request, presence: true
-  validates :resource_request_id, uniqueness: true
+  belongs_to :user_agent
+
+  has_many :resource_requests
+
+  validates :checksum, length: { is: 128 }, presence: true, uniqueness: true
+  validates :remote_ip, length: { maximum: 15 }, presence: true
+  validates :user_agent, presence: true
 
 
   def self.create_by_request!(args)
@@ -18,17 +20,19 @@ class RequestSignature < ActiveRecord::Base
               accept_charset: request.accept_charset,
               accept_encoding: request.accept_encoding,
               accept_language: request.accept_language,
-              remote_ip: request.remote_ip.to_s,
-              request_uuid: { request: request }
+              remote_ip: request.remote_ip.to_s
             }
     create! attrs
   end
 
 
-  def request_uuid=(args)
-    args[:rr_class] ||= ResourceRequest
-    self.resource_request = args[:rr_class].find_or_create_by_request(request: args[:request])
-    resource_request
+  def self.generate_checksum(attrs, digester=Digest::SHA3)
+    digester.hexdigest attrs.values_at(:accept_charset, :remote_ip).collect(&:to_s).join("").downcase
+  end
+
+
+  def generate_checksum
+    self.checksum ||= self.class.generate_checksum(attributes)
   end
 
 end

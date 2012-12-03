@@ -13,12 +13,12 @@ class ApplicationController < ActionController::Base
   helper_method :current_resource
   helper_method :marshal_decode
   helper_method :request_signature
-  helper_method :resource_request
+#  helper_method :resource_request
   helper_method :user_agent
 
 
   def bugit
-    resource_request
+#    resource_request
     request_signature
   end
 
@@ -66,14 +66,14 @@ false#;    request.env['HTTP_DNT'].to_i == 1
   end
 
 
-  def resource_request
-    return nil if dnt?
-#    @resource_request ||= ResourceRequest.find_or_create_by_request request: request, resource: current_resource, user: current_user, user_agent: user_agent
-    @resource_request ||= ResourceRequest.find_or_create_by_request request: request, resource: current_resource, user_agent: user_agent
-  rescue ActiveRecord::RecordInvalid => e
-    Rails.logger.info "Invalid resource_request from request #{request.uuid} in application_controller #{e.inspect}"
-    @resource_request = nil
-  end
+#  def resource_request
+#    return nil if dnt?
+##    @resource_request ||= ResourceRequest.find_or_create_by_request request: request, resource: current_resource, user: current_user, user_agent: user_agent
+#    @resource_request ||= ResourceRequest.find_or_create_by_request request: request, resource: current_resource, user_agent: user_agent
+#  rescue ActiveRecord::RecordInvalid => e
+#    Rails.logger.info "Invalid resource_request from request #{request.uuid} in application_controller #{e.inspect}"
+#    @resource_request = nil
+#  end
 
 
   def user_agent
