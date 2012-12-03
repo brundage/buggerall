@@ -32,12 +32,14 @@ ActiveRecord::Schema.define(:version => 20121203214605) do
   create_table "resource_requests", :force => true do |t|
     t.integer  "request_signature_id", :null => false
     t.integer  "resource_id",          :null => false
+    t.string   "uuid",                 :null => false
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
   end
 
   add_index "resource_requests", ["request_signature_id"], :name => "index_resource_requests_on_request_signature_id"
   add_index "resource_requests", ["resource_id"], :name => "index_resource_requests_on_resource_id"
+  add_index "resource_requests", ["uuid"], :name => "index_resource_requests_on_uuid", :unique => true
 
   create_table "resources", :force => true do |t|
     t.string "path"

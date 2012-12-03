@@ -11,10 +11,13 @@
 
 class ResourceRequest < ActiveRecord::Base
 
+  attr_accessible :request_signature, :resource, :uuid
+
   belongs_to :request_signature
   belongs_to :resource
 
   validates :request_signature, presence: true
   validates :resource, presence: true
+  validates :uuid, presence: true, uniqueness: true
 
 end

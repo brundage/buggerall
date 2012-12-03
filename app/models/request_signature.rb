@@ -16,8 +16,16 @@
 
 class RequestSignature < ActiveRecord::Base
 
+  CHECKSUM_ATTRIBUTE_NAMES = [ 'accept',
+                               'accept_charset',
+                               'accept_encoding',
+                               'accept_language',
+                               'remote_ip',
+                               'user_agent'
+                             ]
+
   attr_accessible :accept, :accept_charset, :accept_encoding, :accept_language,
-                  :remote_ip, :request_uuid
+                  :remote_ip, :request_uuid, :user_agent
 
   before_validation :generate_checksum, on: :create
 
@@ -30,25 +38,41 @@ class RequestSignature < ActiveRecord::Base
   validates :user_agent, presence: true
 
 
-  def self.create_by_request!(args)
+  def self.checksum_attribute_names; CHECKSUM_ATTRIBUTE_NAMES; end
+
+
+  def self.find_or_create_by_request!(args)
     request = args.delete(:request)
-    attrs = { accept: request.accept,
-              accept_charset: request.accept_charset,
-              accept_encoding: request.accept_encoding,
-              accept_language: request.accept_language,
-              remote_ip: request.remote_ip.to_s
-            }
+    attrs = checksum_attribute_names.inject({}) do |hash,name|
+                                                  hash[name] = request.send name
+                                                  hash
+                                                end
+    checksum = generate_checksum(attrs)
+    return find_by_checksum checksum if exists?(checksum: checksum)
+    attrs.merge!(args)
     create! attrs
   end
 
 
   def self.generate_checksum(attrs, digester=Digest::SHA3)
-    digester.hexdigest attrs.values_at(:accept_charset, :remote_ip).collect(&:to_s).join("").downcase
+    digester.hexdigest attrs.values_at(checksum_attribute_names).collect(&:to_s).join("").downcase
   end
 
 
   def generate_checksum
-    self.checksum ||= self.class.generate_checksum(attributes)
+    self.checksum ||= self.class.generate_checksum(checksum_attributes)
+  end
+
+private
+
+  def checksum_attributes
+    attributes.slice(*self.class.checksum_attribute_names).merge(extra_checksum_attributes)
+  end
+
+
+  def extra_checksum_attributes
+    return { } unless user_agent
+    { 'user_agent' => user_agent.agent }
   end
 
 end
