@@ -1,0 +1,41 @@
+<ul>
+  <li><%= link_to 'Persistent and Unblockable Cookies Using HTTP Headers', 'http://www.nikcub.com/posts/persistant-and-unblockable-cookies-using-http-headers' %></li>
+  <li><%= link_to 'Evercookie', 'http://samy.pl/evercookie/' %></li>
+  <li><%= link_to 'Panopticlick', 'https://panopticlick.eff.org/' %></li>
+  <li><hr /></li>
+
+  <li><strong>Resource</strong> <%= current_resource.inspect %></li>
+  <li><hr /></li>
+
+  <li><strong>User</strong> <%= current_user.inspect %></li>
+  <li><hr /></li>
+
+  <li><strong>User Agent</strong> <%= user_agent.inspect %></li>
+  <li><hr /></li>
+
+  <li><strong>Resource Request</strong> <%= resource_request.inspect %></li>
+  <li><hr /></li>
+
+  <li><strong>Request Signature</strong> <%= request_signature.inspect %></li>
+  <li><hr /></li>
+
+  <li><h2>Response Headers</h2></li>
+  <%- headers.sort.each do |k,v| -%>
+    <li><strong><%= k %></strong> <%= v %></li>
+  <%- end -%>
+  <li><hr /></li>
+
+  <li><h2>Cookies</h2></li>
+  <%- cookies.sort.each do |k,v| -%>
+    <li><strong><%= k %></strong> <%= marshal_decode v %></li>
+  <%- end -%>
+  <li><hr /></li>
+
+  <li><h2>ENV</h2></li>
+  <%- request.env.sort.each do |k,v| -%>
+    <li><strong><%= k %></strong> <%= v %></li>
+  <%- end -%>
+  <li><hr /></li>
+
+</ul>
+
