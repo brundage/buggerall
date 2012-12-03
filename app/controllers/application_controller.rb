@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  helper_method :current_user
+#  helper_method :current_user
   helper_method :current_resource
   helper_method :marshal_decode
   helper_method :request_signature
@@ -32,16 +32,16 @@ class ApplicationController < ActionController::Base
   end
 
 
-  def current_user
-    return nil if dnt?
-    @current_user ||= User.find_or_create! id: session_user_id
-  rescue ActiveRecord::RecordNotFound => e
-    Rails.logger.info "User not found with ID #{session_user_id} from request #{request.uuid} in application_controller #{e.inspect}"
-    @current_user = User.create!
-  rescue ActiveRecord::RecordInvalid => e
-    Rails.logger.info "Invalid user from request #{request.uuid} in application_controller #{e.inspect}"
-    @current_user = nil
-  end
+#  def current_user
+#    return nil if dnt?
+#    @current_user ||= User.find_or_create! id: session_user_id
+#  rescue ActiveRecord::RecordNotFound => e
+#    Rails.logger.info "User not found with ID #{session_user_id} from request #{request.uuid} in application_controller #{e.inspect}"
+#    @current_user = User.create!
+#  rescue ActiveRecord::RecordInvalid => e
+#    Rails.logger.info "Invalid user from request #{request.uuid} in application_controller #{e.inspect}"
+#    @current_user = nil
+#  end
 
 
   def dnt?
@@ -68,7 +68,8 @@ false#;    request.env['HTTP_DNT'].to_i == 1
 
   def resource_request
     return nil if dnt?
-    @resource_request ||= ResourceRequest.find_or_create_by_request request: request, resource: current_resource, user: current_user, user_agent: user_agent
+#    @resource_request ||= ResourceRequest.find_or_create_by_request request: request, resource: current_resource, user: current_user, user_agent: user_agent
+    @resource_request ||= ResourceRequest.find_or_create_by_request request: request, resource: current_resource, user_agent: user_agent
   rescue ActiveRecord::RecordInvalid => e
     Rails.logger.info "Invalid resource_request from request #{request.uuid} in application_controller #{e.inspect}"
     @resource_request = nil
@@ -104,7 +105,7 @@ private
   def setup
     return if dnt?
     bugit
-    self.session_user_id = current_user.id
+#    self.session_user_id = current_user.id
     headers["Cache-Control"] = 'no-cache'
   end
 

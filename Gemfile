@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'chunky_png'
+gem 'digest-sha3'
 gem 'flarg'
 gem 'rails', '3.2.8'
 gem 'sqlite3'
@@ -14,8 +15,6 @@ end
 
 group :production do
   gem 'pg'
-  gem 'therubyracer'
-  gem 'uglifier'
 end
 
 
@@ -23,7 +22,6 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'guard'
-  gem 'guard-bundler'
   gem 'guard-rails_best_practices'
   gem 'guard-rails-assets'
   gem 'guard-rspec'
