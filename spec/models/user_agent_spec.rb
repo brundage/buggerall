@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: user_agents
+#
+#  id         :integer          not null, primary key
+#  agent      :string(255)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 require 'spec_helper'
 
 describe Resource do

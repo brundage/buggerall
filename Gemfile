@@ -9,6 +9,7 @@ gem 'taps'
 gem 'thin'
 
 group :development do
+  gem 'annotate'
   gem 'rspec'
 end
 
