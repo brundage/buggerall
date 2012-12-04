@@ -8,13 +8,17 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
 
   <title>Buggerall</title>
-  <%# stylesheet_link_tag    "application", :media => "all" %>
-  <%# javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
 <%= yield %>
+
+<menu>
+  <li><%= link_to "Request Signatures", request_signatures_url %></li>
+  <li><%= link_to "Resources", resources_url %></li>
+  <li><%= link_to "User Agents", user_agents_url %></li>
+</menu>
 
 </body>
 </html>

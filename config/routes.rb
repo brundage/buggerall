@@ -1,3 +1,6 @@
 Buggerall::Application.routes.draw do
-  match '/bugger/bug/:resource_name' => 'bugger#show'
+  match '/bug/:resource_name' => 'bugger#show'
+  resources :resources, only: [:index]
+  resources :request_signatures, only: [:index]
+  resources :user_agents, only: [:index]
 end

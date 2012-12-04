@@ -17,10 +17,6 @@ class BuggerController < ApplicationController
   # Add request info to signature
   # Set request_signature chcecksum to cookies, last_modified, etag
 
-  before_filter :setup
-
-  protect_from_forgery
-
   helper_method :current_resource
   helper_method :marshal_decode
   helper_method :resource_request
@@ -96,6 +92,7 @@ private
 
   def setup
     return if dnt?
+    resource_request  # to make it happen
     self.session_signature_checksum = request_signature.checksum
     headers["Cache-Control"] = 'no-cache'
   end
