@@ -4,13 +4,13 @@ gem 'chunky_png'
 gem 'digest-sha3'
 gem 'flarg'
 gem 'rails', '3.2.8'
-gem 'sqlite3'
 gem 'taps'
 gem 'thin'
 
 group :development do
   gem 'annotate'
   gem 'rspec'
+  gem 'sqlite3'
 end
 
 
