@@ -1,4 +1,4 @@
-class BuggerController < ApplicationController
+class BuggerallController < ApplicationController
 
   before_filter :setup
 
