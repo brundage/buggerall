@@ -21,8 +21,7 @@ ActiveRecord::Schema.define(:version => 20121204185810) do
     t.string   "checksum",        :limit => 128, :null => false
     t.string   "remote_ip",       :limit => 15,  :null => false
     t.integer  "user_agent_id",                  :null => false
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
+    t.datetime "created_at"
     t.integer  "visitor_id"
   end
 
@@ -35,8 +34,7 @@ ActiveRecord::Schema.define(:version => 20121204185810) do
     t.integer  "request_signature_id", :null => false
     t.integer  "resource_id",          :null => false
     t.string   "uuid",                 :null => false
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at"
   end
 
   add_index "resource_requests", ["request_signature_id"], :name => "index_resource_requests_on_request_signature_id"
@@ -51,8 +49,7 @@ ActiveRecord::Schema.define(:version => 20121204185810) do
 
   create_table "user_agents", :force => true do |t|
     t.string   "agent"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
   end
 
   add_index "user_agents", ["agent"], :name => "index_user_agents_on_agent", :unique => true

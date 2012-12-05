@@ -1,0 +1,13 @@
+<%= content_tag_for :p, visitor do %>
+  <ul>
+    <li><strong>Created</strong> <%= time_ago_in_words visitor.created_at %> ago</li>
+    <%- if visitor.last_request_signature -%>
+      <li><strong>Last Signature</strong> <%= render visitor.last_request_signature %></li>
+    <%- end -%>
+    <%- if visitor.resource_requests -%>
+      <li><strong>Resource Requests</strong>
+          <ul><%= render visitor.resource_requests %></ul>
+      </li>
+    <%- end -%>
+  </ul>
+<%- end -%>

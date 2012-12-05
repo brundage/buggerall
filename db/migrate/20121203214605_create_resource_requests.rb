@@ -4,7 +4,7 @@ class CreateResourceRequests < ActiveRecord::Migration
       t.references :request_signature, null: false
       t.references :resource, null: false
       t.string :uuid, null: false
-      t.timestamps
+      t.datetime :created_at
     end
     add_index :resource_requests, :request_signature_id
     add_index :resource_requests, :resource_id

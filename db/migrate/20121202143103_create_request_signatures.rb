@@ -8,7 +8,7 @@ class CreateRequestSignatures < ActiveRecord::Migration
       t.string :checksum, null: false, limit: 128
       t.string :remote_ip, null: false, limit: 15
       t.references :user_agent, null: false
-      t.timestamps
+      t.datetime :created_at
     end
     add_index :request_signatures, [:accept, :accept_charset, :accept_encoding, :accept_language, :remote_ip], name: 'index_accept_checksum'
     add_index :request_signatures, :checksum, unique: true

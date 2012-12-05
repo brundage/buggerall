@@ -29,13 +29,5 @@
   <%- cookies.sort.each do |k,v| -%>
     <li><strong><%= k %></strong> <%= marshal_decode v %></li>
   <%- end -%>
-  <li><hr /></li>
-
-  <li><h2>ENV</h2></li>
-  <%- request.env.sort.each do |k,v| -%>
-    <li><strong><%= k %></strong> <%= v %></li>
-  <%- end -%>
-  <li><hr /></li>
-
 </ul>
 
