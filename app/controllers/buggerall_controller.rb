@@ -74,7 +74,7 @@ class BuggerallController < ApplicationController
 private
 
   def dnt?
-    false #request.env['HTTP_DNT'].to_i == 1
+    request.env['HTTP_DNT'].to_i == 1
   end
 
 
