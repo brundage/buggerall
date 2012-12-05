@@ -1,0 +1,7 @@
+<%= content_tag_for :p, user_agent do %>
+  <ul>
+    <li><strong>User Agent</strong> <%= user_agent.agent %></li>
+    <li><strong>Signatures</strong> <%= user_agent.request_signatures.count %></li>
+    <li><strong>Hits</strong> <%= user_agent.resource_requests.count %></li>
+  </ul>
+<%- end -%>

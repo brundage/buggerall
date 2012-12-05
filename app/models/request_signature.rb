@@ -25,11 +25,12 @@ class RequestSignature < ActiveRecord::Base
                              ]
 
   attr_accessible :accept, :accept_charset, :accept_encoding, :accept_language,
-                  :remote_ip, :request_uuid, :user_agent
+                  :remote_ip, :request_uuid, :user_agent, :visitor
 
   before_validation :generate_checksum, on: :create
 
   belongs_to :user_agent
+  belongs_to :visitor
 
   has_many :resource_requests
 

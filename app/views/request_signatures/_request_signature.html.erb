@@ -1,0 +1,10 @@
+<%= content_tag_for :p, request_signature do %>
+  <ul>
+    <%- RequestSignature.checksum_attribute_names.each do |name| -%>
+      <li><strong><%= name.titleize -%></strong> <%= request_signature.send(name) %></li>
+    <%- end -%>
+    <li><strong>Checksum</strong> <%= request_signature.checksum %></li>
+    <li><strong>User Agent</strong> <%= request_signature.user_agent.agent %></li>
+    <li><strong>Hits</strong> <%= request_signature.resource_requests.count %></li>
+  </ul>
+<%- end -%>

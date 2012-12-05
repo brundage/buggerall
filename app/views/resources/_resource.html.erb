@@ -1,0 +1,6 @@
+<%= content_tag_for :p, resource do %>
+  <ul>
+    <li><strong>Path</strong> <%= resource.path %></li>
+    <li><strong>Hits</strong> <%= resource.resource_requests.count %></li>
+  </ul>
+<%- end -%>

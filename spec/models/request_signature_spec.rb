@@ -26,6 +26,7 @@ describe RequestSignature do
     let(:request_signature) { FactoryGirl.build :request_signature }
 
     it { request_signature.should have_many :resource_requests }
+    it { request_signature.should belong_to :visitor }
     it { request_signature.should belong_to :user_agent }
 
     it { request_signature.should validate_presence_of :remote_ip }
