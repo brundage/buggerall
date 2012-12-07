@@ -2,6 +2,7 @@
   <ul>
     <li><strong>User Agent</strong> <%= user_agent.agent %></li>
     <li><strong>Signatures</strong> <%= user_agent.request_signatures.count %></li>
-    <li><strong>Hits</strong> <%= user_agent.resource_requests.count %></li>
+    <li><strong>Tracked Hits</strong> <%= user_agent.resource_requests.tracked.count %></li>
+    <li><strong><abbr title="Do Not Track">DNT</abbr> Hits</strong> <%= user_agent.resource_requests.dnt.count %></li>
   </ul>
 <%- end -%>
