@@ -19,6 +19,7 @@ class ResourceRequest < ActiveRecord::Base
   scope :dnt, where(dnt: true)
   scope :tracked, where(dnt: false)
 
+  validates :dnt, presence: true
   validates :request_signature, presence: true
   validates :resource, presence: true
   validates :uuid, presence: true, uniqueness: true
