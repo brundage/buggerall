@@ -57,7 +57,7 @@ class BuggerallController < ApplicationController
 
 
   def resource_request
-    @resource_request ||= ResourceRequest.create! request_signature: request_signature, resource: current_resource, uuid: request.uuid
+    @resource_request ||= ResourceRequest.create! dnt: dnt?, request_signature: request_signature, resource: current_resource, uuid: request.uuid
   rescue ActiveRecord::RecordInvalid => e
     Rails.logger.info "Invalid resource_request from request #{request.uuid} in application_controller #{e.inspect}"
     @resource_request = nil

@@ -31,12 +31,14 @@ ActiveRecord::Schema.define(:version => 20121204185810) do
   add_index "request_signatures", ["visitor_id"], :name => "index_request_signatures_on_visitor_id"
 
   create_table "resource_requests", :force => true do |t|
-    t.integer  "request_signature_id", :null => false
-    t.integer  "resource_id",          :null => false
-    t.string   "uuid",                 :null => false
+    t.boolean  "dnt",                  :default => false, :null => false
+    t.integer  "request_signature_id",                    :null => false
+    t.integer  "resource_id",                             :null => false
+    t.string   "uuid",                                    :null => false
     t.datetime "created_at"
   end
 
+  add_index "resource_requests", ["dnt"], :name => "index_resource_requests_on_dnt"
   add_index "resource_requests", ["request_signature_id"], :name => "index_resource_requests_on_request_signature_id"
   add_index "resource_requests", ["resource_id"], :name => "index_resource_requests_on_resource_id"
   add_index "resource_requests", ["uuid"], :name => "index_resource_requests_on_uuid", :unique => true

@@ -1,6 +1,7 @@
 <%= content_tag_for :p, resource do %>
   <ul>
     <li><strong>Path</strong> <%= resource.path %></li>
-    <li><strong>Hits</strong> <%= resource.resource_requests.count %></li>
+    <li><strong>Tracked Hits</strong> <%= resource.resource_requests.tracked.count %></li>
+    <li><strong><abbr title="Do Not Track">DNT</abbr> Hits</strong> <%= resource.resource_requests.dnt.count %></li>
   </ul>
 <%- end -%>
