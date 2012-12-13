@@ -1,1 +1,2 @@
+gemfile: Gemfile.travis
 language: ruby

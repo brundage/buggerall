@@ -4,18 +4,20 @@ gem 'chunky_png'
 gem 'digest-sha3'
 gem 'flarg'
 gem 'rails', '3.2.8'
-gem 'taps'
-gem 'thin'
 
 group :development do
   gem 'annotate'
+  gem 'guard-rails-assets'
   gem 'rspec-rails'
   gem 'sqlite3'
+  gem 'thin'
 end
 
 
 group :production do
   gem 'pg'
+  gem 'taps'
+  gem 'thin'
 end
 
 
@@ -24,7 +26,6 @@ group :test do
   gem 'factory_girl_rails'
   gem 'guard'
   gem 'guard-rails_best_practices'
-  gem 'guard-rails-assets'
   gem 'guard-rspec'
   gem 'rails_best_practices'
   gem 'rb-fchange', require: false  # Filesystem watcher for Guard on Windows

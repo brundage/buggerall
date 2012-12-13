@@ -1,8 +1,3 @@
-guard 'rails-assets' do
-  watch(%r{^app/assets/.+$})
-  watch('config/application.rb')
-end
-
 guard 'rails_best_practices' do
   watch(%r{^app/(.+)\.rb$})
 end
