@@ -7,7 +7,7 @@ class BuggerallController < ApplicationController
   def show
     respond_with do |f|
       f.html { }
-      f.png { render text: BuggerallConfig.config.image.to_blob, status: 200 }
+      f.png { render text: BuggerallConfig.config.image_blob, status: 200 }
     end
   end
 
@@ -23,7 +23,7 @@ class BuggerallController < ApplicationController
   def current_resource
     @current_resource ||= Resource.find_or_create_by_path! resource_name
   rescue ActiveRecord::RecordInvalid => e
-    Rails.logger.info "Invalid resource from request #{request.uuid} in application_controller #{e.inspect}"
+    Rails.logger.error "Invalid resource from request #{request.uuid} in application_controller #{e.inspect}"
     @current_resource = nil
   end
 
@@ -32,10 +32,10 @@ class BuggerallController < ApplicationController
     return nil if dnt?
     @current_visitor ||= Visitor.find_or_create! id: session_visitor_id
   rescue ActiveRecord::RecordNotFound => e
-    Rails.logger.info "Visitor not found with ID #{session_visitor_id} from request #{request.uuid} in application_controller #{e.inspect}"
+    Rails.logger.error "Visitor not found with ID #{session_visitor_id} from request #{request.uuid} in application_controller #{e.inspect}"
     @current_visitor = Visitor.create!
   rescue ActiveRecord::RecordInvalid => e
-    Rails.logger.info "Invalid visitor from request #{request.uuid} in application_controller #{e.inspect}"
+    Rails.logger.error "Invalid visitor from request #{request.uuid} in application_controller #{e.inspect}"
     @current_visitor = nil
   end
 
@@ -51,7 +51,7 @@ class BuggerallController < ApplicationController
   def request_signature
     @request_signature ||= RequestSignature.find_or_create_by_request! request: request, user_agent: user_agent, visitor: current_visitor
   rescue ActiveRecord::RecordInvalid => e
-    Rails.logger.info "Invalid request_signature from request #{request.uuid} in application_controller #{e.inspect}"
+    Rails.logger.error "Invalid request_signature from request #{request.uuid} in application_controller #{e.inspect}"
     @request_signature = nil
   end
 
@@ -59,7 +59,7 @@ class BuggerallController < ApplicationController
   def resource_request
     @resource_request ||= ResourceRequest.create! dnt: dnt?, request_signature: request_signature, resource: current_resource, uuid: request.uuid
   rescue ActiveRecord::RecordInvalid => e
-    Rails.logger.info "Invalid resource_request from request #{request.uuid} in application_controller #{e.inspect}"
+    Rails.logger.error "Invalid resource_request from request #{request.uuid} in application_controller #{e.inspect}"
     @resource_request = nil
   end
 
@@ -67,7 +67,7 @@ class BuggerallController < ApplicationController
   def user_agent
     @user_agent ||= UserAgent.find_or_create_by_agent! request.user_agent
   rescue ActiveRecord::RecordInvalid => e
-    Rails.logger.info "Invalid user_agent (#{request.user_agent}) from request #{request.uuid} in application_controller #{e.inspect}"
+    Rails.logger.error "Invalid user_agent (#{request.user_agent}) from request #{request.uuid} in application_controller #{e.inspect}"
     @user_agent = nil
   end
 
