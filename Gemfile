@@ -9,7 +9,7 @@ gem 'thin'
 
 group :development do
   gem 'annotate'
-  gem 'rspec'
+  gem 'rspec-rails'
   gem 'sqlite3'
 end
 
