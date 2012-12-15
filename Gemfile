@@ -7,6 +7,8 @@ gem 'rails', '3.2.8'
 
 group :development do
   gem 'annotate'
+  gem 'better_errors'
+  gem 'binding_of_caller'  # for better_errors
   gem 'guard-rails-assets'
   gem 'rspec-rails'
   gem 'sqlite3'

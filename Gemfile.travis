@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 gem 'chunky_png'
 gem 'digest-sha3'
 gem 'flarg'
+gem 'rake'  # Travis.ci needs this
 gem 'rails', '3.2.8'
 gem 'database_cleaner'
 gem 'factory_girl_rails'

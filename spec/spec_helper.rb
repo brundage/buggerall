@@ -1,7 +1,9 @@
 ENV["RAILS_ENV"] ||= 'test'
 
-require 'simplecov'
-SimpleCov.start
+unless ENV["RAILS_ENV"] == 'travis'
+  require 'simplecov'
+  SimpleCov.start
+end
 
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
