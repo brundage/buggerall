@@ -39,4 +39,3 @@ group :test do
   gem 'simplecov', require: false, git: 'git://github.com/colszowka/simplecov.git'
   gem 'sqlite3'
 end
-

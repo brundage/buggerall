@@ -1,6 +1,12 @@
-development:
+development: &development
   adapter: sqlite3
   database: db/development.sqlite3
+  pool: 5
+  timeout: 5000
+
+production:
+  adapter: sqlite3
+  database: db/production.sqlite3
   pool: 5
   timeout: 5000
 
@@ -9,8 +15,6 @@ test:
   database: ":memory:"
   timeout: 5000
 
-production:
-  adapter: sqlite3
-  database: db/production.sqlite3
-  pool: 5
-  timeout: 5000
+travis:
+  database: db/travis.sqlite3
+  <<: *development
