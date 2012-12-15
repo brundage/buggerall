@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121204185810) do
+ActiveRecord::Schema.define(:version => 20121215151746) do
 
   create_table "request_signatures", :force => true do |t|
     t.string   "accept"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(:version => 20121204185810) do
 
   add_index "request_signatures", ["accept", "accept_charset", "accept_encoding", "accept_language", "remote_ip"], :name => "index_accept_checksum"
   add_index "request_signatures", ["checksum"], :name => "index_request_signatures_on_checksum", :unique => true
-  add_index "request_signatures", ["user_agent_id"], :name => "index_request_signatures_on_user_agent_id", :unique => true
+  add_index "request_signatures", ["user_agent_id"], :name => "index_request_signatures_on_user_agent_id"
   add_index "request_signatures", ["visitor_id"], :name => "index_request_signatures_on_visitor_id"
 
   create_table "resource_requests", :force => true do |t|
