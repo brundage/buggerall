@@ -89,15 +89,15 @@ private
 
   def session_visitor_id=(id)
     cookies.permanent.signed[:visitor_id] = id
-    headers["ETag"] = id.to_s
-    headers["Last-Modified"] = id.to_s
+    headers["ETag"] = id
+    headers["Last-Modified"] = id
   end
 
 
   def setup
     resource_request  # to make it happen
     if track_visitor? && current_visitor
-      self.session_visitor_id = current_visitor.id
+      self.session_visitor_id = current_visitor.id.to_s
       headers["Cache-Control"] = 'no-cache'
     end
   end
