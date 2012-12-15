@@ -38,4 +38,18 @@ describe RequestSignature do
 #    it { request_signature.should validate_uniqueness_of :checksum }
   end
 
+
+  describe 'checksums' do
+
+    let(:one) { { 'accept' => 'one', 'accept_charset' => 'one', 'accept_encoding' => 'one again', 'remote_ip' => '127.0.0.1', 'user_agent' => 'one' } }
+    let(:two) { { 'accept' => 'two', 'accept_charset' => 'two', 'accept_encoding' => 'two again', 'remote_ip' => '127.0.0.2', 'user_agent' => 'two' } }
+
+
+    it 'generates different checksums' do
+      RequestSignature.generate_checksum(one).should_not eq RequestSignature.generate_checksum(two)
+    end
+
+
+  end
+
 end

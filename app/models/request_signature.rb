@@ -56,7 +56,7 @@ class RequestSignature < ActiveRecord::Base
 
 
   def self.generate_checksum(attrs, digester=Digest::SHA3)
-    digester.hexdigest attrs.values_at(checksum_attribute_names).collect(&:to_s).join("").downcase
+    digester.hexdigest attrs.values_at(*checksum_attribute_names).collect(&:to_s).join("").downcase
   end
 
 
