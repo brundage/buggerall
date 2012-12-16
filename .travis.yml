@@ -3,6 +3,6 @@ env:
 gemfile: Gemfile.travis
 language: ruby
 script:
-  - bundle exec rake --trace db:migrate
+  - bundle exec rake db:migrate
   - bundle exec rake db:test:prepare
   - bundle exec rspec

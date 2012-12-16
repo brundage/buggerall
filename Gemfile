@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'chunky_png'
 gem 'digest-sha3'
 gem 'flarg'
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.9'
 
 group :development do
   gem 'annotate'
