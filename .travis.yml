@@ -1,4 +1,8 @@
-gemfile: Gemfile.travis
-language: ruby
 env:
   RAILS_ENV=travis
+gemfile: Gemfile.travis
+language: ruby
+script:
+  - bundle exec rake --trace db:migrate
+  - bundle exec rake db:test:prepare
+  - bundle exec rspec
