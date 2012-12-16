@@ -17,6 +17,13 @@ describe ResourceRequest do
 #    let(:record) { FactoryGirl.build :resource_request }
 #  end
 
+  it { should allow_mass_assignment_of :dnt }
+  it { should allow_mass_assignment_of :http_referrer }
+  it { should allow_mass_assignment_of :request_signature }
+  it { should allow_mass_assignment_of :resource }
+  it { should allow_mass_assignment_of :uuid }
+
+  it { should belong_to :http_referrer }
   it { should belong_to :request_signature }
   it { should belong_to :resource }
 

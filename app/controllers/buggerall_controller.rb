@@ -14,6 +14,7 @@ class BuggerallController < ApplicationController
 
   helper_method :current_visitor
   helper_method :current_resource
+  helper_method :http_referrer
   helper_method :marshal_decode
   helper_method :resource_request
   helper_method :request_signature
@@ -40,6 +41,11 @@ class BuggerallController < ApplicationController
   end
 
 
+  def http_referrer
+    @http_referrer ||= HttpReferrer.find_or_create_by_url! url: request.env['HTTP_REFERER']
+  end
+
+
   def marshal_decode(string)
     return unless string
     Marshal.load Base64.decode64(string)
@@ -57,7 +63,11 @@ class BuggerallController < ApplicationController
 
 
   def resource_request
-    @resource_request ||= ResourceRequest.create! dnt: dnt?, request_signature: request_signature, resource: current_resource, uuid: request.uuid
+    @resource_request ||= ResourceRequest.create! dnt: dnt?,
+                                                  http_referrer: http_referrer,
+                                                  request_signature: request_signature,
+                                                  resource: current_resource,
+                                                  uuid: request.uuid
   rescue ActiveRecord::RecordInvalid => e
     Rails.logger.error "Invalid resource_request from request #{request.uuid} in application_controller #{e.inspect}"
     @resource_request = nil

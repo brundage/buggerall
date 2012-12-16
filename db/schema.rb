@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121215151746) do
+ActiveRecord::Schema.define(:version => 20121216164958) do
+
+  create_table "http_referrers", :force => true do |t|
+    t.string "url"
+  end
+
+  add_index "http_referrers", ["url"], :name => "index_http_referrers_on_url"
 
   create_table "request_signatures", :force => true do |t|
     t.string   "accept"
@@ -36,9 +42,11 @@ ActiveRecord::Schema.define(:version => 20121215151746) do
     t.integer  "resource_id",                             :null => false
     t.string   "uuid",                                    :null => false
     t.datetime "created_at"
+    t.integer  "http_referrer_id"
   end
 
   add_index "resource_requests", ["dnt"], :name => "index_resource_requests_on_dnt"
+  add_index "resource_requests", ["http_referrer_id"], :name => "index_resource_requests_on_http_referrer_id"
   add_index "resource_requests", ["request_signature_id"], :name => "index_resource_requests_on_request_signature_id"
   add_index "resource_requests", ["resource_id"], :name => "index_resource_requests_on_resource_id"
   add_index "resource_requests", ["uuid"], :name => "index_resource_requests_on_uuid", :unique => true

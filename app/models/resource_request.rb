@@ -11,12 +11,13 @@
 
 class ResourceRequest < ActiveRecord::Base
 
-  attr_accessible :dnt, :request_signature, :resource, :uuid
+  attr_accessible :dnt, :http_referrer, :request_signature, :resource, :uuid
 
+  belongs_to :http_referrer
   belongs_to :request_signature
   belongs_to :resource
 
-  scope :dnt, where(dnt: true)
+  scope :untracked, where(dnt: true)
   scope :tracked, where(dnt: false)
 
   validates :dnt, presence: true

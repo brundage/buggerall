@@ -1,0 +1,10 @@
+<%= content_tag_for :ul, http_referrer do %>
+  <li><%- if http_referrer.url.blank? -%>
+    none
+  <%- else -%>
+    <strong>URL</strong><%= link_to http_referrer.url %>
+  <%- end -%></li>
+  <li><strong>Signatures</strong> <%= http_referrer.request_signatures.count %></li>
+  <li><strong>Tracked Hits</strong> <%= http_referrer.resource_requests.tracked.count %></li>
+  <li><strong><abbr title="Do Not Track">DNT</abbr> Hits</strong> <%= http_referrer.resource_requests.untracked.count %></li>
+<%- end -%>

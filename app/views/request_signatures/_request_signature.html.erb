@@ -6,6 +6,6 @@
     <li><strong>Checksum</strong> <%= request_signature.checksum %></li>
     <li><strong>User Agent</strong> <%= request_signature.user_agent.agent %></li>
     <li><strong>Tracked Hits</strong> <%= request_signature.resource_requests.tracked.count %></li>
-    <li><strong><abbr title="Do Not Track">DNT</abbr> Hits</strong> <%= request_signature.resource_requests.dnt.count %></li>
+    <li><strong><abbr title="Do Not Track">DNT</abbr> Hits</strong> <%= request_signature.resource_requests.untracked.count %></li>
   </ul>
 <%- end -%>
